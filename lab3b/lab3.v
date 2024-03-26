@@ -22,11 +22,8 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
   reg [3:0] SCORE_B;
   reg [3:0] WINNER;
   reg False_Users_Ready;
-  reg SIGNAL;
   wire LOAD;
   wire DONE;
-  
-  assign LOAD = (STATE == 4'b0000) ? 1 : 0;
 
   reg [3:0] state, next_state;
   

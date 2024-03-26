@@ -58,10 +58,7 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
 
 // ---------------- The FSM -----------------------------------
   /* Lab task: PLEASE DEFINE AND ENCODE OTHER STATES */	
-  
-  reg [3:0] state, next_state;
 
-  
   localparam Init = 4'b0000;
   localparam Users_Ready = 4'b0001;
   localparam Counter_Hits = 4'b0010;

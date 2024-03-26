@@ -15,39 +15,57 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
   output        FALSE_START;
   output [2:0]  ADDRESS;
   output [9:0]  DATA;
-  wire  [2:0] ADDRESS;
-  wire  [9:0] DATA;
-
+    
   reg    [3:0]  STATE;
-  reg    [3:0]  NEXT_STATE;
+  
+  reg [3:0] SCORE_A;
+  reg [3:0] SCORE_B;
+  reg [3:0] WINNER;
+  reg FALSE_START;
+  reg SIGNAL;
+  wire LOAD;
+  wire DONE;
+  
+  assign LOAD = (STATE == 4'b0000) ? 1 : 0;
+  
+// ---------------- Other Modules ---------------------------
+  /* Lab task: instantiate and connect the following modules:
+               address_generator
+               prandom
+               countdown
+  */
+  
+  address_generator instance1(
+		.RESET(RESET),
+		.CLK(CLK),
+		.ADDRESS(ADDRESS)
+	);
+	
+	prandom instance2 (
+		.ADDRESS(ADDRESS),
+		.DATA(DATA)
+	);
+	
+	countdown instance3(
+		.RESET(RESET),
+		.CLK(CLK),
+		.LOAD(LOAD),
+		.DONE(DONE),
+		.DATA(DATA)
+	);
+	
 
-  wire  	   DONE;
-  reg        SIGNAL;
-  reg			   LOAD;
-  reg [3:0]  SCORE_A;
-  reg [3:0]  SCORE_B;
-  reg [3:0]  WINNER;
-
-  // ---------------- The FSM -----------------------------------
-  /* Lab task: PLEASE DEFINE AND ENCODE OTHER STATES */
-
-  reg [3:0] state, next_state;
-
-  localparam INIT_STATE = 4'd0, Users_Ready = 4'b0001, Counter_Hits = 4'b0010, A_Wins = 4'b0011, B_Wins = 4'b100;
-
-  // update state FFs
-	always @(posedge CLK)
+	
+	reg [3:0] state, next_state;
+// ---------------- The FSM -----------------------------------
+  /* Lab task: PLEASE DEFINE AND ENCODE OTHER STATES */	
+	
+	localparam Init = 4'b0000, Users_Ready = 4'b0001, Counter_Hits = 4'b0010, A_Wins = 4'b0011, B_Wins = 4'b100;
+	 
+	//next state
+	always @(*)
 	begin
-		if (RESET)
-			state <= Init;
-		else 
-			state <= next_state;
-	end
-
-  // nest state logic (combinational)
-  /* Lab task: PLEASE FINISH THE NEXT STATE LOGIC */
-  always @(*) begin
-    case (state)
+		case (state)
 			Init : if (NEXT == 0) next_state = Users_Ready; else next_state = Init;
 			Users_Ready : if (DONE == 1) next_state = Counter_Hits; else next_state = Users_Ready;
 			Counter_Hits : if (PLAYER_A == 0) next_state = A_Wins; else if (PLAYER_B == 0) next_state = B_Wins; else next_state = Counter_Hits;
@@ -57,11 +75,19 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
 			default : next_state = Init;
 		endcase
 	end
-
-  // Moore output logic (combinational)
-  assign FALSE_START = 1'b0; // in part A, FALSE_START is 0
-  /* Lab task: PLEASE FINISH THE OUTPUT LOGIC */
- always @(*)
+	
+	//next state
+	always @(posedge CLK)
+	begin
+		if (RESET)
+			state <= Init;
+		else 
+			state <= next_state;
+	end
+	
+	//output logic
+	
+	always @(*)
 	begin	
 		case (state)
 			Init : begin
@@ -114,31 +140,5 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
 	
 		endcase
 	end
-
-
-  // ---------------- Other Modules ---------------------------
-  /* Lab task: instantiate and connect the following modules:
-               address_generator
-               prandom
-               countdown
-  */
-
-  address_generator instance1(
-		.RESET(RESET),
-		.CLK(CLK),
-		.ADDRESS(ADDRESS)
-	);
-  prandom instance2 (
-		.ADDRESS(ADDRESS),
-		.DATA(DATA)
-	);
-	
-  countdown instance3(
-		.RESET(RESET),
-		.CLK(CLK),
-		.LOAD(LOAD),
-		.DONE(DONE),
-		.DATA(DATA)
-	);
 
 endmodule

@@ -46,7 +46,10 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
 .DATA(STATE == 4'b0010 ? 10'd8 : DATA),
 .DONE(DONE)
   );
- 
+
+ // ---------------- The FSM -----------------------------------
+  /* Lab task: PLEASE DEFINE AND ENCODE OTHER STATES */	
+  
   reg [3:0] SCURR, SNEXT;
   localparam init = 4'b0000;
   localparam start = 4'b0001;

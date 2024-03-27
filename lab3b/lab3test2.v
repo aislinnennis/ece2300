@@ -16,13 +16,18 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
   output [2:0] ADDRESS;
   output [9:0] DATA;
  
-
-  // ADD YOUR CODE BELOW THIS LINE
   wire LOAD;
   wire DONE;
   wire ENABLE_A;
   wire ENABLE_B;
- 
+  
+ // ---------------- Other Modules ---------------------------
+  /* Lab task: instantiate and connect the following modules:
+               address_generator
+               prandom
+               countdown
+  */  
+  
   address_generator a (
 .CLK(CLK),
 .RESET(RESET),
@@ -126,7 +131,5 @@ always @(posedge CLK) begin
 if (RESET) SCURR <= init; else SCURR <= SNEXT;
 end
 
- 
-  // ADD YOUR CODE ABOVE THIS LINE
-
+  
 endmodule 

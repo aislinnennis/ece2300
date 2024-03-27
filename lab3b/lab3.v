@@ -1,5 +1,5 @@
 // Provided for ECE 2300 Lab 3
-module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SCORE_B, WINNER, STATE, False_Users_Ready, ADDRESS, DATA);
+module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SCORE_B, WINNER, STATE, FALSE_START, ADDRESS, DATA);
   input         CLK;
   input         RESET;
   input         NEXT;
@@ -12,7 +12,7 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
   output [3:0]  SCORE_B;
   output [3:0]  WINNER;
   output [3:0]  STATE;
-  output        False_Users_Ready;
+  output        FALSE_START;
   output [2:0]  ADDRESS;
   output [9:0]  DATA;
 
@@ -21,7 +21,7 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
   reg [3:0] SCORE_A;
   reg [3:0] SCORE_B;
   reg [3:0] WINNER;
-  reg False_Users_Ready;
+  reg FALSE_START;
   wire LOAD;
   wire DONE;
 
@@ -94,22 +94,22 @@ module lab3(CLK, RESET, NEXT, PLAYER_A, PLAYER_B, TEST_LOAD, SIGNAL, SCORE_A, SC
 // output logic
   always @(*) begin
  case(state)
-    Init: begin WINNER = 4'b0000; STATE = Init; False_Users_Ready = 0; end
-    Users_Ready: begin WINNER = 4'b0000; STATE = Users_Ready; False_Users_Ready = 0; end
-    Counter_Hits: begin WINNER = 4'b0000; STATE = Counter_Hits; False_Users_Ready = 0; end
-    countdown: begin WINNER = 4'b0000; STATE = countdown; False_Users_Ready = 0; end
-    A_False: begin WINNER = 4'b0000; STATE = A_False; False_Users_Ready = 1; end
-    B_False: begin WINNER = 4'b0000; STATE = B_False; False_Users_Ready = 1; end
-    ready: begin WINNER = 4'b0000; STATE = ready; False_Users_Ready = 0; end
-    A_Won: begin WINNER = 4'b1010; STATE = A_Won; False_Users_Ready = 0; end
-    B_Won: begin WINNER = 4'b1011; STATE = B_Won; False_Users_Ready = 0; end
-    False_Win: begin WINNER = 4'b0000; STATE = False_Win; False_Users_Ready = 1; end
-    A_False_Win: begin WINNER = 4'b1010; STATE = A_False_Win; False_Users_Ready = 1; end
-    B_False_Win: begin WINNER = 4'b1011; STATE = B_False_Win; False_Users_Ready = 1; end
-    Normal_Win: begin WINNER = 4'b0000; STATE = Normal_Win; False_Users_Ready = 0; end
-    A_Normal_Win: begin WINNER = 4'b1010; STATE = A_Normal_Win; False_Users_Ready = 0; end
-    B_Normal_Win: begin WINNER = 4'b1011; STATE = B_Normal_Win; False_Users_Ready = 0; end
-    default: begin WINNER = 4'b0000; STATE = Users_Ready; False_Users_Ready = 0; end
+    Init: begin WINNER = 4'b0000; STATE = Init; FALSE_START = 0; end
+    Users_Ready: begin WINNER = 4'b0000; STATE = Users_Ready; FALSE_START = 0; end
+    Counter_Hits: begin WINNER = 4'b0000; STATE = Counter_Hits; FALSE_START = 0; end
+    countdown: begin WINNER = 4'b0000; STATE = countdown; FALSE_START = 0; end
+    A_False: begin WINNER = 4'b0000; STATE = A_False; FALSE_START = 1; end
+    B_False: begin WINNER = 4'b0000; STATE = B_False; FALSE_START = 1; end
+    ready: begin WINNER = 4'b0000; STATE = ready; FALSE_START = 0; end
+    A_Won: begin WINNER = 4'b1010; STATE = A_Won; FALSE_START = 0; end
+    B_Won: begin WINNER = 4'b1011; STATE = B_Won; FALSE_START = 0; end
+    False_Win: begin WINNER = 4'b0000; STATE = False_Win; FALSE_START = 1; end
+    A_False_Win: begin WINNER = 4'b1010; STATE = A_False_Win; FALSE_START = 1; end
+    B_False_Win: begin WINNER = 4'b1011; STATE = B_False_Win; FALSE_START = 1; end
+    Normal_Win: begin WINNER = 4'b0000; STATE = Normal_Win; FALSE_START = 0; end
+    A_Normal_Win: begin WINNER = 4'b1010; STATE = A_Normal_Win; FALSE_START = 0; end
+    B_Normal_Win: begin WINNER = 4'b1011; STATE = B_Normal_Win; FALSE_START = 0; end
+    default: begin WINNER = 4'b0000; STATE = Users_Ready; FALSE_START = 0; end
   endcase
 end
 

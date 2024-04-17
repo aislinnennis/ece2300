@@ -1,7 +1,7 @@
-module alu(A, B, OP, Y, C, V, N, Z);
+module alu(A, B, FS, Y, C, V, N, Z);
   input  [7:0]  A;
   input  [7:0]  B;
-  input  [2:0]  OP;
+  input  [2:0]  FS;
 
   output [7:0]  Y;
   output        C;
@@ -29,7 +29,7 @@ module alu(A, B, OP, Y, C, V, N, Z);
   wire [1:0] OSEL;
   wire SHIFT_LA;
   wire SHIFT_LR;
-  wire LOGICAL_OP;
+  wire LOGICAL_FS;
   wire CI_ADDER;
   wire [7:0] B_MUX;
   
@@ -38,7 +38,7 @@ module alu(A, B, OP, Y, C, V, N, Z);
   assign CI_ADDER = (CISEL == 1'b1) ? 1'b1 : 1'b0;
   assign N = ((Y[7] == 1'b1) ? 1'b1 : 1'b0);
   assign Z = ((Y == 8'b00000000) ? 1'b1 : 1'b0);
-  assign C = (OP == 3'b000 | OP == 3'b001) ? C_ADDER : (OP == 3'b101 || OP == 3'b110) ? 1'b0 : C_SHIFTER;
+  assign C = (FS == 3'b000 | FS == 3'b001) ? C_ADDER : (FS == 3'b101 || FS == 3'b110) ? 1'b0 : C_SHIFTER;
   
   
  
@@ -52,26 +52,26 @@ module alu(A, B, OP, Y, C, V, N, Z);
  );
 	
   control freak(
-    .OP(OP),
+    .FS(FS),
 	 .CISEL(CISEL),
 	 .BSEL(BSEL),
 	 .OSEL(OSEL),
 	 .SHIFT_LA(SHIFT_LA),
 	 .SHIFT_LR(SHIFT_LR),
-	 .LOGICAL_OP(LOGICAL_OP)
+	 .LOGICAL_FS(LOGICAL_FS)
   );
 
   logical paradox(
     .A(A),
 	 .B(B),
-	 .OP(~(~OP[0] & OP[1] & OP[2])),
+	 .FS(~(~FS[0] & FS[1] & FS[2])),
 	 .Y(Y_LOGICAL)
   );  
   
   shifter iDontGiveAShift(
 	 .A(A),
-	 .LA(~OP[0] & OP[1] & ~OP[2]),
-	.LR((OP[0] & OP[1] & ~OP[2]) | (~OP[0] & OP[1] & ~OP[2])),
+	 .LA(~FS[0] & FS[1] & ~FS[2]),
+	.LR((FS[0] & FS[1] & ~FS[2]) | (~FS[0] & FS[1] & ~FS[2])),
 	.Y(Y_SHIFTER),
 	.C(C_SHIFTER)
   );

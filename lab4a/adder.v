@@ -1,9 +1,9 @@
-module adder(A, B, CI, Y, C, V); // add all inputs and outputs inside parentheses
+module adder(A, B, FS, Y, C, V); // add all inputs and outputs inside parentheses
 
   // inputs
   input [7:0] A;
   input [7:0] B;
-  input CI;
+  input FS;
   
   
   // outputs
@@ -15,11 +15,11 @@ module adder(A, B, CI, Y, C, V); // add all inputs and outputs inside parenthese
   wire [6:0] Cout;
   
   
-  assign Y[0] = (A[0] ^ B[0]) ^ CI;
-  assign Cout[0] = (CI & B[0]) | (CI & A[0]) | (A[0] & B[0]);
+  assign Y[0] = (A[0] ^ B[0]) ^ FS;
+  assign Cout[0] = (FS & B[0]) | (FS & A[0]) | (A[0] & B[0]);
   
   assign Y[1] = (A[1] ^ B[1]) ^ Cout[0];
-  assign Cout[1] = (Cout[0] & B[1]) | (CI & A[1]) | (A[1] & B[1]);
+  assign Cout[1] = (Cout[0] & B[1]) | (FS & A[1]) | (A[1] & B[1]);
   
   assign Y[2] = (A[2] ^ B[2]) ^ Cout[1];
   assign Cout[2] = (Cout[1] & B[2]) | (Cout[1] & A[2]) | (A[2] & B[2]);

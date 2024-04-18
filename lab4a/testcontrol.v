@@ -1,4 +1,4 @@
-module control(FS, BSEL); // add other outputs here
+module control(FS, BSEL, OSEL, SHIFT_LA, SHIFT_LR, LOGICAL_OP); // add other outputs here
 
   // inputs
   input  [2:0]  FS;
@@ -18,6 +18,11 @@ module control(FS, BSEL); // add other outputs here
 
   // outputs (add others here)
   output reg BSEL;
+  output     CISEL;
+  output [1:0] OSEL;
+  output SHIFT_LA;
+  output SHIFT_LR;
+  output LOGICAL_OP;
 
   // constants for outputs (you can add more)
   // good practice that helps readablity
@@ -35,6 +40,16 @@ module control(FS, BSEL); // add other outputs here
       end
       FS_SUB: begin
         BSEL = BSEL_BN;
+      end
+      FS_SRA: begin
+      end
+      FS_SRL: begin
+      end
+      FS_SLL: begin
+      end
+      FS_AND: begin
+      end
+      FS_OR: begin
       end
       default: begin
         BSEL = 1'b0;

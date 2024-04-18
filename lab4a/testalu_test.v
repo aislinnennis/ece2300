@@ -102,8 +102,84 @@ module alu_test();
 
 
     /* ADD YOUR TEST CASES BELOW THIS LINE */
+	A  = 8'b10101010;
+    B  = 8'hff;
+    FS = 3'b100;  // SLL
+    
+    // ... it includes a wait...
+    #100;  // wait for input signals to propagate through circuit
+    
+    // ... and it includes a statement that checks all of the outputs against the values we expect, and prints whether the operation was correct
+    $display("MSIM>");
+    if(Y == 8'b01010100 && C == 1'b1 && V == 1'b0 && N == 1'b0 && Z == 1'b0) begin
+        $display("MSIM> SLL (FS = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", FS, A, B, Y, C, V, N, Z);
+    end
+    else begin
+      // note that we have to fill in the expected values by hand here, so we can make sure what our outputs should have been
+        $display("MSIM> ERROR: SLL (FS = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be b01010100), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 0), Z = %1b (should be 1)", FS, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
 
+    A  = 8'b00110011;
+    B  = 8'b00001111;
+    FS = 3'b110;  // OR
+    
+    #100;  // wait for input signals to propagate through circuit
+    
+    $display("MSIM>");
+    if(Y == 8'b00111111 && C == 1'b0 && V == 1'b0 && N == 1'b0 && Z == 1'b0) begin
+        $display("MSIM> OR (FS = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", FS, A, B, Y, C, V, N, Z);
+    end
+    else begin
+        $display("MSIM> ERROR: OR (FS = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be d63), C = %1b (should be 0), V = %1b (should be 0), N = %1b (should be 0), Z = %1b (should be 0)", FS, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>"); 
 
+    A = 8'b00000001;
+	B = 8'b00000001;
+	FS = 3'b000; //ADD
+	
+	#100;
+	
+	$display("MSIM>");
+    if(Y == 8'b00000010 && C == 1'b0 && V == 1'b0 && N == 1'b0 && Z == 1'b0) begin
+        $display("MSIM> ADD (FS = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", FS, A, B, Y, C, V, N, Z);
+    end
+    else begin
+        $display("MSIM> ERROR: ADD (FS = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be d2), C = %1b (should be 0), V = %1b (should be 0), N = %1b (should be 0), Z = %1b (should be 0)", FS, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+    A = 8'b00000001;
+	B = 8'b00000010;
+	FS = 3'b001; //SUB
+	
+	#100;
+	
+	$display("MSIM>");
+    if(Y == 8'b11111111 && C == 1'b0 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+        $display("MSIM> SUB (FS = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", FS, A, B, Y, C, V, N, Z);
+    end
+    else begin
+        $display("MSIM> ERROR: SUB (FS = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be d-1), C = %1b (should be 0), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", FS, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+     A = 8'hc9;
+	 B = 8'hff;
+	 FS = 3'b010; //SRA
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+        $display("MSIM> SRA (FS = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", FS, A, B, Y, C, V, N, Z);
+    end
+    else begin
+        $display("MSIM> ERROR: SRA (FS = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", FS, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+      
     /* ADD YOUR TEST CASES ABOVE THIS LINE */
 
 

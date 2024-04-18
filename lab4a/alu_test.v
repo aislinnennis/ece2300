@@ -149,6 +149,24 @@ module alu_test();
       $display("MSIM> ERROR: ADD (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be d2), C = %1b (should be 0), V = %1b (should be 0), N = %1b (should be 0), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
     end
     $display("MSIM>");
+
+
+	A = 8'b00000001;
+	B = 8'b00000000;
+	OP = 3'b000; //ADD
+	
+	#100;
+	
+	$display("MSIM>");
+	  if(Y == 8'b00000001 && C == 1'b0 && V == 1'b0 && N == 1'b0 && Z == 1'b0) begin
+      $display("MSIM> ADD (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+	    $display("MSIM> ERROR: ADD (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be d1), C = %1b (should be 0), V = %1b (should be 0), N = %1b (should be 0), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	  
 	 
 	A = 8'b00000001;
 	B = 8'b00000010;
@@ -162,6 +180,21 @@ module alu_test();
     end
     else begin
       $display("MSIM> ERROR: SUB (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be d-1), C = %1b (should be 0), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	A = 8'b00000001;
+	B = 8'b00000001;
+	OP = 3'b001; //SUB
+	
+	#100;
+	
+	$display("MSIM>");
+	  if(Y == 8'b00000000 && C == 1'b0 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+      $display("MSIM> SUB (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+	    $display("MSIM> ERROR: SUB (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be d0), C = %1b (should be 0), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
     end
     $display("MSIM>");
 	 
@@ -179,8 +212,142 @@ module alu_test();
       $display("MSIM> ERROR: SRA (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
     end
     $display("MSIM>");
+
+// EDIT BELOW
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b010; //SRA
 	 
+	 #100;
 	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+      $display("MSIM> SRA (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+      $display("MSIM> ERROR: SRA (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b011; //SRL
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+	    $display("MSIM> SRL (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+	    $display("MSIM> ERROR: SRL (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b011; //SRL
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+	    $display("MSIM> SRL (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+	    $display("MSIM> ERROR: SRL (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b100; //SLL
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+	    $display("MSIM> SLL (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+	    $display("MSIM> ERROR: SLL (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");	  
+
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b100; //SLL
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+      $display("MSIM> SRA (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+	    $display("MSIM> ERROR: SLL (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b101; //AND
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+	    $display("MSIM> AND (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+	    $display("MSIM> ERROR: AND (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b101; //AND
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+	    $display("MSIM> OR (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+	    $display("MSIM> ERROR: OR (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b110; //OR
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+      $display("MSIM> SRA (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+      $display("MSIM> ERROR: SRA (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
+
+	 A = 8'hc9;
+	 B = 8'hff;
+	 OP = 3'b110; //OR
+	 
+	 #100;
+	 
+	 $display("MSIM>");
+    if(Y == 8'he4 && C == 1'b1 && V == 1'b0 && N == 1'b1 && Z == 1'b0) begin
+      $display("MSIM> SRA (OP = %3b) is correct for A = %2h, B = %2h: Y = %2h, C = %1b, V = %1b, N = %1b, Z = %1b", OP, A, B, Y, C, V, N, Z);
+    end
+    else begin
+      $display("MSIM> ERROR: SRA (OP = %3b) is incorrect for A = %2h, B = %2h: Y = %2h (should be he4), C = %1b (should be 1), V = %1b (should be 0), N = %1b (should be 1), Z = %1b (should be 0)", OP, A, B, Y, C, V, N, Z);
+    end
+    $display("MSIM>");
     // ADD YOUR TEST CASES ABOVE THIS LINE
     
 

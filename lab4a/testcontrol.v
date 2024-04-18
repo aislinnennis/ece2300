@@ -1,0 +1,47 @@
+module control(FS, BSEL); // add other outputs here
+
+  // inputs
+  input  [2:0]  FS;
+
+  // constants for the function select
+  // good practice that helps readablity
+  // and save you from typing lots of numerical constants
+  localparam FS_ADD = 3'b000;
+  localparam FS_SUB = 3'b001;
+  localparam FS_SRA = 3'b010;
+  localparam FS_SRL = 3'b011;
+  localparam FS_SLL = 3'b100;
+  localparam FS_AND = 3'b101;
+  localparam FS_OR  = 3'b110;
+
+  /* ADD YOUR CODE BELOW THIS LINE */
+
+  // outputs (add others here)
+  output reg BSEL;
+
+  // constants for outputs (you can add more)
+  // good practice that helps readablity
+  // and save you from typing lots of numerical constants
+  localparam BSEL_B  = 1'b0;
+  localparam BSEL_BN = 1'b1;
+
+  // internal variables (you can add more)
+
+  // implement the control logic here
+  always @(*) begin
+    case (FS)
+      FS_ADD: begin
+        BSEL = BSEL_B;
+      end
+      FS_SUB: begin
+        BSEL = BSEL_BN;
+      end
+      default: begin
+        BSEL = 1'b0;
+      end
+    endcase
+  end
+
+  /* ADD YOUR CODE ABOVE THIS LINE */
+
+endmodule

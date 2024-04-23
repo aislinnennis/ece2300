@@ -1,0 +1,15 @@
+module shifter(A, LA, LR, Y, C);
+
+  // inputs
+  input [7:0] A;
+  input LA, LR;
+
+  // outputs
+  output [7:0] Y;
+  output C;
+
+  /* ADD YOUR CODE BELOW THIS LINE */
+
+  /* ADD YOUR CODE ABOVE THIS LINE */
+
+endmodule

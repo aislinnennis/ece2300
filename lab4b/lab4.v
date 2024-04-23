@@ -38,7 +38,7 @@ module lab4(CLK, RESET, IOA, IOB, IOC, EN_L, PC, NextPC, Iin, DataA, DataB, Data
   );
 
 
-  lab4iram ProgramToRun( // <-- THIS IS THE ONLY LINE YOU SHOULD HAVE TO MODIFY IN THIS FILE
+  lab4iram1G ProgramToRun( // <-- THIS IS THE ONLY LINE YOU SHOULD HAVE TO MODIFY IN THIS FILE
     .CLK(CLK),
     .RESET(RESET),
     .ADDR(PC),
